@@ -1,18 +1,38 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import OnwerHomeScreen from './Screens/OwnerHomeScreen.js';
+import LoginScreen from './Screens/loginScreen.js';
+import { Header } from '@rneui/base';
 
+const Stack = createNativeStackNavigator();
 
 export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        {/* <Stack.Screen options={ {headerShown: false} } name="firstPage" component={FirstScreen} /> */}
+        {/* <Stack.Screen name='OwnerHomeScreen' component={OnwerHomeScreen} /> */}
+        <Stack.Screen options={{headerShown:false}} name='LoginScreen' component={LoginScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+const FirstScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.welcommingText}>Join Us As</Text>
       <View style={{flexDirection:'row', width:330, justifyContent:'space-evenly'}}>
-        <TouchableOpacity>
+      <TouchableOpacity>
           <View style={styles.buttonSecondary}>
             <Text style={styles.buttonSecondaryText}>TOURIST</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => 
+            navigation.navigate('OwnerHomeScreen')
+            }>
           <View style={styles.buttonPrimary}>
             <Text style={styles.buttonPrimaryText}>OWNER</Text>
           </View>
@@ -20,7 +40,7 @@ export default function App() {
       </View>
     </View>
   );
-}
+};
 
 
 const styles = StyleSheet.create({
