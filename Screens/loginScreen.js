@@ -1,14 +1,44 @@
 import react, {useState} from 'react'
 import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpacity} from 'react-native'
+import { initializeApp } from "firebase/app";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
+const firebaseConfig = {
+  apiKey: "AIzaSyBfl4LHG75EcoHXsPmCb-nvs-KMBtHLw24",
+  authDomain: "s7-exam-mobile.firebaseapp.com",
+  projectId: "s7-exam-mobile",
+  storageBucket: "s7-exam-mobile.appspot.com",
+  messagingSenderId: "262660907853",
+  appId: "1:262660907853:web:6fc6cb92c48dce57760d04"
+};
 
-
+const app = initializeApp(firebaseConfig);
 
 const LoginScreen = ({navigation}) => {
+    const auth = getAuth(app);
     const[email, setEmail] = useState('')
     const[password, setPassword] = useState('')
 
-
+    const handleSignUp = () => {
+             createUserWithEmailAndPassword(auth,email,password)
+             .then((userCredential) => {
+              console.log('register with the userName',userCredential.user.email)
+            })
+            .catch((error) => {
+                if (error.code == 'auth/operation-not-allowed') {
+                    console.log('Enable anonymous in your firebase console.');
+                }
+                console.error(error);
+            })
+    }
+    const handleLogin = () => {
+      signInWithEmailAndPassword(email,password)
+      .then(userCredential => {
+        const user = userCredential.user;
+        console.log('loged in with the userName', user.email);
+      })
+      .catch(error => alert(error.message))
+    }
     return (
       <KeyboardAvoidingView
       style = {styles.container}
@@ -18,27 +48,25 @@ const LoginScreen = ({navigation}) => {
         <TextInput
             placeholder="Email"
             value={email}
-            onChangeText={text => setEmail}
+            onChangeText={text => setEmail(text)}
             style={styles.input}
         />
         <TextInput
             placeholder="Password"
             value={password}
-            onChangeText={text => setPassword}
+            onChangeText={text => setPassword(text)}
             style={styles.input}
             secureTextEntry
         />
       </View>
       <View style = {styles.buttonContainer}>
 
-      <TouchableOpacity>
+      <TouchableOpacity onPress={handleSignUp}>
       <View style={styles.buttonSecondary}>
             <Text style={styles.buttonSecondaryText}>Register</Text>
           </View>
         </TouchableOpacity>
-         <TouchableOpacity onPress={() => 
-            navigation.navigate('OwnerHomeScreen')
-            }>
+         <TouchableOpacity onPress={handleLogin} >
           <View style={styles.buttonPrimary}>
             <Text style={styles.buttonPrimaryText}>Login</Text>
           </View>
