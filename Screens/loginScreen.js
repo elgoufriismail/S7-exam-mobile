@@ -20,6 +20,7 @@ const LoginScreen = ({navigation}) => {
     const[password, setPassword] = useState('')
 
     const handleSignUp = () => {
+      const auth = getAuth(app);
              createUserWithEmailAndPassword(auth,email,password)
              .then((userCredential) => {
               console.log('register with the userName',userCredential.user.email)
@@ -36,7 +37,7 @@ const LoginScreen = ({navigation}) => {
       signInWithEmailAndPassword(auth,email.trim(),password.trim())
       .then(userCredential => {
         const user = userCredential.user;
-        console.log('loged in with the userName', user.email);
+        console.log('loged in with the userName' , user.email);
       })
       .catch(error => alert(error.message))
     }
