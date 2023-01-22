@@ -1,7 +1,8 @@
-import react, {useState} from 'react'
+import react, {useEffect, useState} from 'react'
 import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpacity} from 'react-native'
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { useNavigation } from "@react-navigation/core"
 
 const firebaseConfig = {
   apiKey: "AIzaSyBfl4LHG75EcoHXsPmCb-nvs-KMBtHLw24",
@@ -14,23 +15,36 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
+
+
+
 const LoginScreen = ({navigation}) => {
     const auth = getAuth(app);
     const[email, setEmail] = useState('')
     const[password, setPassword] = useState('')
+    const navigator = useNavigation();
+
+    useEffect (() => {
+      const auth = getAuth(app);
+      onAuthStateChanged(auth,user => {
+        if (user) {
+          navigation.replace("OwnerHomeScreen")
+        }
+      })
+    }, [])
 
     const handleSignUp = () => {
       const auth = getAuth(app);
-             createUserWithEmailAndPassword(auth,email,password)
-             .then((userCredential) => {
-              console.log('register with the userName',userCredential.user.email)
-            })
-            .catch((error) => {
-                if (error.code == 'auth/operation-not-allowed') {
-                    console.log('Enable anonymous in your firebase console.');
-                }
-                console.error(error);
-            })
+        createUserWithEmailAndPassword(auth,email,password)
+        .then((userCredential) => {
+          console.log('register with the userName',userCredential.user.email)
+        })
+        .catch((error) => {
+          if (error.code == 'auth/operation-not-allowed') {
+            console.log('Enable anonymous in your firebase console.');
+          }
+          console.error(error);
+        })
     }
     const handleLogin = () => {
       const auth = getAuth(app);
@@ -44,7 +58,7 @@ const LoginScreen = ({navigation}) => {
     return (
       <KeyboardAvoidingView
       style = {styles.container}
-      behavior="padding" >
+      behavior="height" >
       <View
       style = {styles.inputContainer}>
         <TextInput
