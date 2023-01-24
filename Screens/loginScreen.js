@@ -58,7 +58,7 @@ const LoginScreen = ({navigation}) => {
     return (
       <KeyboardAvoidingView
       style = {styles.container}
-      behavior="height" >
+      behavior="height">
       <View
       style = {styles.inputContainer}>
         <TextInput

@@ -5,17 +5,26 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import OnwerHomeScreen from './Screens/OwnerHomeScreen.js';
 import LoginScreen from './Screens/loginScreen.js';
 import { Header } from '@rneui/base';
-
+import addHotel from './Screens/addHotel.js';
+import Wizard from './components/Wizard.js';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen options={{headerShown:false}} name='LoginScreen' component={LoginScreen} />
+        {/* <Stack.Screen options={{headerShown:false}} name='LoginScreen' component={LoginScreen} /> */}
         {/* <Stack.Screen options={ {headerShown: false} } name="firstPage" component={FirstScreen} /> */}
-        <Stack.Screen name='OwnerHomeScreen' component={OnwerHomeScreen} />
-        
+        {/* <Stack.Screen options={
+          {
+            headerTitle: "home",
+            headerRight: () => (
+              <Button title="sign out"/>
+            )
+          }
+        } name='OwnerHomeScreen' component={OnwerHomeScreen} /> */}
+        <Stack.Screen name='addHotel' component={addHotel} />
+        {/* <Stack.Screen name='Wizard' component={Wizard} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );
