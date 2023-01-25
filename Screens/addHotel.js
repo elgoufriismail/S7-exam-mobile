@@ -6,10 +6,11 @@ import Wizard from '../components/Wizard.js';
 //import Step from '../components/Wizard.js';
 
 
-const addHotel = () => {
+const AddHotel = ({navigation}) => {
 
 //    const db = getFirestore();
-/*     const handleAdd = async () => {
+/*
+        const handleAdd = async () => {
         try {
             const docRef = await addDoc(collection(db,"hotels"),{
                 nom: "smail",
@@ -23,10 +24,10 @@ const addHotel = () => {
             console.error("error inserting the data: ", e);    
         }
     } */
-
+   
     return (
         
-        <KeyboardAvoidingView style={{backgroundColor:'black',flex:1}}>
+        <KeyboardAvoidingView style={{flex:1}}>
             <Wizard initialValues={{
                 nom : '',
                 distanceDucentre: 0,
@@ -35,7 +36,7 @@ const addHotel = () => {
                 image: '',
                 Description: ''
             }}>
-                <Wizard.Step>
+                <Wizard.Step navigation={navigation}>
                     {({onChangeValue,values}) => (
                         <View style={styles.inputContainer}>
                         <TextInput
@@ -66,9 +67,9 @@ const addHotel = () => {
 
                     )}
                 </Wizard.Step>
-                <Wizard.Step>
+                <Wizard.Step navigation={navigation}>
                     {({onChangeValue,values}) => (
-                        <View style={{backgroundColor:'white', flex:1}}>
+                        <View style={{flex:1}}>
                         <TextInput
                             placeholder="Description"
                             value={values.Description}
@@ -114,14 +115,13 @@ const styles = StyleSheet.create({
         paddingBottom: 50,
         flex: 1,
         justifyContent: 'center',
-        alignSelf: 'center',
-        backgroundColor: 'red'
+        alignSelf: 'center'
     },
 
 })
 
 
-export default addHotel
+export default AddHotel
 
 
 

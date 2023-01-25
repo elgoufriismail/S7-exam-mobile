@@ -4,6 +4,7 @@ import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { async } from '@firebase/util';
 
 class Step extends React.Component{
+    
     state = {
         
     }
@@ -21,6 +22,9 @@ class Step extends React.Component{
                     Description: "tres bon hotel",
                     image: "image",
                 } */)
+                this.props.navigation.replace("OwnerHomeScreen")
+
+                
             }catch (e) {
                 console.error("error inserting the data: ", e);    
             }
@@ -29,7 +33,7 @@ class Step extends React.Component{
     }
     render(){
         return (
-            <View style={{flex:1, backgroundColor:'brown'}}>
+            <View style={{flex:1}}>
                 {this.props.children({
                     onChangeValue: this.props.onChangeValue,
                     values: this.props.values
@@ -67,7 +71,7 @@ class Wizard extends React.Component {
     render(){
         console.log(this.state.values);
         return (
-            <View style={{backgroundColor:'yellow',flex:1}}>
+            <View style={{flex:1}}>
                 {React.Children.map(this.props.children, (el, index) => {
                     if(index == this.state.index){
                         return React.cloneElement(el, {

@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import OnwerHomeScreen from './Screens/OwnerHomeScreen.js';
 import LoginScreen from './Screens/loginScreen.js';
 import { Header } from '@rneui/base';
-import addHotel from './Screens/addHotel.js';
+import AddHotel from './Screens/AddHotel.js';
 import Wizard from './components/Wizard.js';
 const Stack = createNativeStackNavigator();
 
@@ -13,18 +13,18 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/* <Stack.Screen options={{headerShown:false}} name='LoginScreen' component={LoginScreen} /> */}
-        {/* <Stack.Screen options={ {headerShown: false} } name="firstPage" component={FirstScreen} /> */}
-        {/* <Stack.Screen options={
+      <Stack.Screen options={ {headerShown: false} } name="firstPage" component={FirstScreen} />
+        <Stack.Screen options={{headerShown:false}} name='LoginScreen' component={LoginScreen} />
+        <Stack.Screen options={
           {
             headerTitle: "home",
             headerRight: () => (
               <Button title="sign out"/>
             )
           }
-        } name='OwnerHomeScreen' component={OnwerHomeScreen} /> */}
-        <Stack.Screen name='addHotel' component={addHotel} />
-        {/* <Stack.Screen name='Wizard' component={Wizard} /> */}
+        } name='OwnerHomeScreen' component={OnwerHomeScreen} />
+        <Stack.Screen name='addHotel' component={AddHotel} />
+        <Stack.Screen name='Wizard' component={Wizard} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -41,7 +41,7 @@ const FirstScreen = ({navigation}) => {
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => 
-            navigation.navigate('OwnerHomeScreen')
+            navigation.navigate('LoginScreen')
             }>
           <View style={styles.buttonPrimary}>
             <Text style={styles.buttonPrimaryText}>OWNER</Text>

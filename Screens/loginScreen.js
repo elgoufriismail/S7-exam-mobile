@@ -22,7 +22,7 @@ const LoginScreen = ({navigation}) => {
     const auth = getAuth(app);
     const[email, setEmail] = useState('')
     const[password, setPassword] = useState('')
-    const navigator = useNavigation();
+    // const navigator = useNavigation();
 
     useEffect (() => {
       const auth = getAuth(app);
